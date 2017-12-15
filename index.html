@@ -1,43 +1,274 @@
-<style>
-	pre {
-	    white-space: pre-wrap;       /* Since CSS 2.1 */
-	    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-	    white-space: -pre-wrap;      /* Opera 4-6 */
-	    white-space: -o-pre-wrap;    /* Opera 7 */
-	    word-wrap: break-word;       /* Internet Explorer 5.5+ */
-	}
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+</head>
+  <div style="display:none;">
+    <img id="pizza" src="pizza.png">
+    <img id = "pasta" src="pasta.png">
+	<img id="wine" src="cab.png">
+  </div>
+  <body>
+
+    <canvas id="myCanvas"></canvas>
+<div id="p1"><h1><b>NEWB30</b></h1>
+	You are cordially invited to my 30th birthday in Rome, Italy during the last weekend in April. Fuck, I can’t believe I’m actually planning this day here we are. My parents have <b>*very*</b> graciously taken care of accommodations in Rome for three nights (four days) 4/27-4/30. You just need to cover your transportation. As you can imagine, this will be a party and pasta-heavy trip. (And yes, Bruce and Nancy will be staying close by celebrating with us as well)
+<p>
+	<a href="https://www.google.com/flights?tfs=CAIQAhpLEgoyMDE4LTA0LTI2IiAKA0VXUhIKMjAxOC0wNC0yNhoDRkNPKgJEWTIENzAyNGoNCAISCS9tLzAyXzI4NnIMCAISCC9tLzA2YzYyGksSCjIwMTgtMDQtMzAiIAoDRkNPEgoyMDE4LTA0LTMwGgNFV1IqAkRZMgQ3MDIzagwIAhIIL20vMDZjNjJyDQgCEgkvbS8wMl8yODZAAUgBUgNVU0Q">Flights are $480 RT non stop NYC to Rome</a> if you book now.</p>
 	
-	img{
-		width: 30%;
-		display: block;
-		margin: 0 auto;
-	}
+<p>Please RSVP by Dec 20th by sending me a copy of your booked flight itinerary. I understand this red sauce involves a great expense in the form of time and $$ so there’s absolutely zero pressure if you cannot attend for any reason whatsoever. If you are slightly unsure/on the fence I would be much happier if you opt out now vs. change your RSVP later since there are a lot of logistics involved. There will be other celebrations.</p> 
+
+<p>Please do not discuss this trip with anyone outside of the people on this list. There are only so many friends I can invite for this one so I really don’t want to hurt any feelings. </p>
+
+<p>That’s all for now. Hit me with any questions.</p>
+<p>Ciao,<br>Matteo</p>
+
+</div>
+
 	
-	h2{
-		color:rgb(56,74,128);
-	}
-	</style>
-<span>
-<pre>
-	
-	
-	
-<div align="center"><h2><b>NEWB30</b></h2>DO NOT SHARE
 
-You are cordially invited to my 30th birthday in Rome, Italy during the last weekend in April. Fuck, I can’t believe I’m actually planning this day but here we are.</div>
-My parents have <b>*very*</b> graciously taken care of accommodations in Rome for three nights (four days) 4/27-4/30. You just need to cover your transportation. As you can imagine, this will be a party and pasta-heavy trip. (And yes, Bruce and Nancy will be staying close by celebrating with us as well)
+    <script>
+      window.requestAnimFrame = (function(callback) {
+        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+        function(callback) {
+          window.setTimeout(callback, 1000 / 60);
+        };
+      })();
 
-<img src="http://epicuriousintuscany.co.uk/Epidemo/wp-content/uploads/2016/09/bucatini-amatriciana.jpg">
+      function initBalls(canvas) {
+        balls = [];
 
-<a href="https://www.google.com/flights?tfs=CAIQAhpLEgoyMDE4LTA0LTI2IiAKA0VXUhIKMjAxOC0wNC0yNhoDRkNPKgJEWTIENzAyNGoNCAISCS9tLzAyXzI4NnIMCAISCC9tLzA2YzYyGksSCjIwMTgtMDQtMzAiIAoDRkNPEgoyMDE4LTA0LTMwGgNFV1IqAkRZMgQ3MDIzagwIAhIIL20vMDZjNjJyDQgCEgkvbS8wMl8yODZAAUgBUgNVU0Q">Flights are $430 RT non stop NYC to Rome</a> if you book now. 
+        var pizzaImg=document.getElementById("pizza");
+        var pastaImg=document.getElementById("pasta");
+        var wineImg=document.getElementById("wine");
 
-Please RSVP by Dec 20th by sending me a copy of your booked flight itinerary. I understand this red sauce involves a great expense in the form of time and $$ so there’s absolutely zero pressure if you cannot attend for any reason whatsoever. If you are slightly unsure/on the fence I would be much happier if you opt out now vs. change your RSVP later since there are a lot of logistics involved. There will be other celebrations. 
+        for(var i = 0; i<3; i++){
+          var randWidth = Math.floor(Math.random() * canvas.width);
+          var randHeight = Math.floor(Math.random() * canvas.height);
+          var ball = new Ball(randWidth, randHeight, 0, 0, pizza);
+          var vx = Math.random();
+          var vy = Math.random();
+          var v_len = Math.sqrt((vx * vx) + (vy * vy));
+          ball.vx = vx/v_len * 4;
+          ball.vy = vy/v_len * 4;
+          balls.push(ball);
+        }
 
-Please do not discuss this trip with anyone outside of the people on this list. There are only so many friends I can invite for this one so I really don’t want to hurt any feelings. 
+        for(var i = 0; i<3; i++){
+          var randWidth = Math.floor(Math.random() * canvas.width);
+          var randHeight = Math.floor(Math.random() * canvas.height);
+          var ball = new Ball(randWidth, randHeight, 0, 0, pasta);
+          ball.scale = ball.scale/1.25;
+          var vx = Math.random();
+          var vy = Math.random();
+          var v_len = Math.sqrt((vx * vx) + (vy * vy));
+          ball.vx = vx/v_len * 4;
+          ball.vy = vy/v_len * 4;
+          balls.push(ball);
+        }
+		
+        for(var i = 0; i<3; i++){
+          var randWidth = Math.floor(Math.random() * canvas.width);
+          var randHeight = Math.floor(Math.random() * canvas.height);
+          var ball = new Ball(randWidth, randHeight, 0, 0, wine);
+          var vx = Math.random();
+          var vy = Math.random();
+          var v_len = Math.sqrt((vx * vx) + (vy * vy));
+          ball.vx = vx/v_len * 4;
+          ball.vy = vy/v_len * 4;
+          balls.push(ball);
+        }
+       
 
-That’s all for now. Hit me with any questions.
+        return balls;
+      }
+      function getMousePos(canvas, evt) {
+        // get canvas position
+        var obj = canvas;
+        var top = 0;
+        var left = 0;
+        while(obj.tagName != 'BODY') {
+          top += obj.offsetTop;
+          left += obj.offsetLeft;
+          obj = obj.offsetParent;
+        }
 
-Ciao,
-Matteo
-</pre>
-</span>
+        // return relative mouse position
+        var mouseX = evt.clientX - left + window.pageXOffset;
+        var mouseY = evt.clientY - top + window.pageYOffset;
+        return {
+          x: mouseX,
+          y: mouseY
+        };
+      }
+
+      function magnitude(vx, vy){
+        return Math.sqrt((vx*vx) + (vy*vy));
+      }
+
+      function updateBalls(canvas, balls, timeDiff, mousePos) {
+        var context = canvas.getContext('2d');
+        var collisionDamper = 0;
+        var floorFriction = 0.0005 * timeDiff;
+        var mouseForceMultiplier = 1 * timeDiff;
+
+        for(var n = 0; n < balls.length; n++) {
+          var ball = balls[n];
+          // set ball position based on velocity
+          ball.y += ball.vy;
+          ball.x += ball.vx;
+
+          // mouse forces
+          var mouseX = mousePos.x;
+          var mouseY = mousePos.y;
+
+          var distX = ball.x - mouseX;
+          var distY = ball.y - mouseY;
+
+          var radius = Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
+
+          var totalDist = Math.abs(distX) + Math.abs(distY);
+
+          var forceX = (Math.abs(distX) / totalDist) * (1 / radius) * mouseForceMultiplier;
+          var forceY = (Math.abs(distY) / totalDist) * (1 / radius) * mouseForceMultiplier;
+
+          if(distX > 0 ) {// mouse is left of ball
+            ball.vx += forceX;
+          }
+          else {
+            ball.vx -= forceX;
+          }
+          if(distY > 0) {// mouse is on top of ball
+            ball.vy += forceY;
+          }
+          else {
+            ball.vy -= forceY;
+          }
+
+          var mag = magnitude(ball.vx, ball.vy);
+          if(mag > 8){
+            ball.vx = ball.vx*8/mag;
+            ball.vy = ball.vy*8/mag;
+          }
+
+
+          // floor friction
+          // if(ball.vx > 0) {
+          //   ball.vx -= floorFriction;
+          // }
+          // else if(ball.vx < 0) {
+          //   ball.vx += floorFriction;
+          // }
+          // if(ball.vy > 0) {
+          //   ball.vy -= floorFriction;
+          // }
+          // else if(ball.vy < 0) {
+          //   ball.vy += floorFriction;
+          // }
+
+          // floor condition
+          if(ball.y > (canvas.height - ball.radius)) {
+            ball.y = canvas.height - ball.radius - 2;
+            ball.vy *= -1;
+            ball.vy *= (1 - collisionDamper);
+          }
+
+          // ceiling condition
+          if(ball.y < (ball.radius)) {
+            ball.y = ball.radius + 2;
+            ball.vy *= -1;
+            ball.vy *= (1 - collisionDamper);
+          }
+
+          // right wall condition
+          if(ball.x > (canvas.width - ball.radius)) {
+            ball.x = canvas.width - ball.radius - 2;
+            ball.vx *= -1;
+            ball.vx *= (1 - collisionDamper);
+          }
+
+          // left wall condition
+          if(ball.x < (ball.radius)) {
+            ball.x = ball.radius + 2;
+            ball.vx *= -1;
+            ball.vx *= (1 - collisionDamper);
+          }
+        }
+      }
+      function Ball(x, y, vx, vy, img) {
+        this.x = x;
+        this.y = y;
+        this.vx = vx;
+        this.vy = vy;
+        //this.color = color;
+        this.origX = x;
+        this.origY = y;
+        this.radius = 50;
+        this.scale = 200;
+        this.img = img;
+      }
+      function animate(canvas, balls, lastTime, mousePos) {
+        var context = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+
+        // update
+        var date = new Date();
+        var time = date.getTime();
+        var timeDiff = time - lastTime;
+        updateBalls(canvas, balls, timeDiff, mousePos);
+        lastTime = time;
+
+        // clear
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        // render
+        for(var n = 0; n < balls.length; n++) {
+          var ball = balls[n];
+          context.beginPath();
+          //context.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, false);
+          context.drawImage(ball.img,ball.x - ball.scale/2 ,ball.y - ball.scale/2, ball.scale, ball.scale);
+          //context.fillStyle = ball.color;
+          context.fill();
+        }
+   
+        // request new frame
+        requestAnimFrame(function() {
+          animate(canvas, balls, lastTime, mousePos);
+        });
+      }
+
+      var canvas = document.getElementById('myCanvas');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;      
+      var balls = initBalls(canvas);
+      //var text = drawText(canvas);
+      var date = new Date();
+      var time = date.getTime();
+
+
+      /*
+       * set mouse position really far away
+       * so the mouse forces are nearly obsolete
+       */
+      var mousePos = {
+        x: 9999,
+        y: 9999
+      };
+
+      canvas.addEventListener('mousemove', function(evt) {
+        var pos = getMousePos(canvas, evt);
+        mousePos.x = pos.x;
+        mousePos.y = pos.y;
+      });
+
+      canvas.addEventListener('mouseout', function(evt) {
+        mousePos.x = 9999;
+        mousePos.y = 9999;
+      });
+      animate(canvas, balls, time, mousePos);
+
+    </script>
+  </body>
+</html>
